@@ -1,13 +1,14 @@
 <h2>ELF linker sets</h2>
 
 <p>The linker takes collections of definitions, separates them into
-different sections, and concatenates each section into a contiguous
-region. The effect is that although you can interleave code and data
-in your C source file, the linker disentangles the little pieces into
-one code section and one data section.
+different sections (e.g. code and data), and concatenates each section
+into a contiguous block of memory. The effect is that although you can
+interleave code and data in your C source file, the linker
+disentangles the little pieces into one code section and one data
+section.
 
 <p>You can also define your own sections, if you like, by using gcc
-declaration attributes, so the linker to gather the declarations
+declaration attributes, so the linker will gather the declarations
 together in your binary regardless of how spread out they were in the
 source. The FreeBSD kernel calls these
 &quot;<a href="https://svnweb.freebsd.org/base/head/sys/sys/linker_set.h?view=markup">linker
@@ -44,3 +45,4 @@ main program.
     #define ptbl    __start_pred
     #define ptbl_end __stop_pred
 </pre>
+

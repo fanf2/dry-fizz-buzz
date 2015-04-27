@@ -7,11 +7,12 @@ CFLAGS=	-pipe -O -g -std=c99 -pedantic \
 
 all: dry-fizz-buzz-elf dry-fizz-buzz-hom blog.html
 
-blog.html:
-	cat dry-fizz-buzz.html \
-	    dry-fizz-buzz-hom.html \
-	    dry-fizz-buzz-elf.html \
-		>blog.html
+html=	dry-fizz-buzz.html \
+	dry-fizz-buzz-hom.html \
+	dry-fizz-buzz-elf.html
+
+blog.html: ${html}
+	cat ${html} >blog.html
 
 dry-fizz-buzz-elf: dry-fizz-buzz-elf.c dry-fizz-buzz.c
 	gcc ${CFLAGS} -DPTBL='"dry-fizz-buzz-elf.c"' -o dry-fizz-buzz-elf dry-fizz-buzz.c
