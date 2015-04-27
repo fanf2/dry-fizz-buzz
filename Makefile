@@ -9,7 +9,8 @@ all: dry-fizz-buzz-elf dry-fizz-buzz-hom blog.html
 
 html=	dry-fizz-buzz.html \
 	dry-fizz-buzz-hom.html \
-	dry-fizz-buzz-elf.html
+	dry-fizz-buzz-elf.html \
+	trailer.html
 
 blog.html: ${html}
 	cat ${html} >blog.html
