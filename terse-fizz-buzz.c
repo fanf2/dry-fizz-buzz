@@ -5,5 +5,5 @@ int main() {
     printf(printf("%s%s"
       , i % 3 ? "" : "Fizz"
       , i % 5 ? "" : "Buzz"
-      ) ? "\n" : "%i\n", i);
+      ) ? "%.*s\n" : "%i%s\n", i, "");
 }
