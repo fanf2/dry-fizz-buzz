@@ -1,0 +1,46 @@
+<h2>ELF linker sets</h2>
+
+<p>The linker takes collections of definitions, separates them into
+different sections, and concatenates each section into a contiguous
+region. The effect is that although you can interleave code and data
+in your C source file, the linker disentangles the little pieces into
+one code section and one data section.
+
+<p>You can also define your own sections, if you like, by using gcc
+declaration attributes, so the linker to gather the declarations
+together in your binary regardless of how spread out they were in the
+source. The FreeBSD kernel calls these
+&quot;<a href="https://svnweb.freebsd.org/base/head/sys/sys/linker_set.h?view=markup">linker
+sets</a>&quot; and uses them extensively to construct lists of
+drivers, initialization actions, etc.
+
+<p>This allows us to declare the metadata for a FizzBuzz predicate
+alongside its function definition, and use the linker to gather all
+the metadata into the array expected by the main program. The key
+part of the macro below is the <tt>__attribute__((section("pred")))</tt>.
+
+<pre>
+    #define predicate(name, test) \
+        static bool name(int i) { return test; } \
+        pred pred_##name __attribute__((section("pred"))) \
+            = { name, #name }
+</pre>
+
+<p>With that convenience macro we can define our predicates in
+whatever order or in whatever files we want.
+
+<pre>
+    predicate(Fizz, i % 3 == 0);
+    predicate(Buzz, i % 5 == 0);
+</pre>
+
+<p>To access the metadata, the linker helpfully defines some symbols
+identifying the start and end of the section, which we can pass to our
+main program.
+
+<pre>
+    extern pred __start_pred[], __stop_pred[];
+    
+    #define ptbl    __start_pred
+    #define ptbl_end __stop_pred
+</pre>

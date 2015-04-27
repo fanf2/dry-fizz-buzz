@@ -12,3 +12,8 @@ dry-fizz-buzz-elf: dry-fizz-buzz-elf.c dry-fizz-buzz.c
 
 dry-fizz-buzz-hom: dry-fizz-buzz-hom.c dry-fizz-buzz.c
 	gcc ${CFLAGS} -DPTBL='"dry-fizz-buzz-hom.c"' -o dry-fizz-buzz-hom dry-fizz-buzz.c
+
+.SUFFIXES: .html .c
+
+.html.c:
+	sed '/^    /!d;s///;s/&lt;/</g' < $< >$@

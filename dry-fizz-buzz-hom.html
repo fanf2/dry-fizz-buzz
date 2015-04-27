@@ -1,0 +1,52 @@
+<h2>Higher-order cpp macros</h2>
+
+<p>A higher-order macro is a macro which takes a macro as an argument.
+This can be useful if you want the macro to do different things each
+time it is invoked.
+
+<p>For FizzBuzz we use a higher-order macro to tersely define all the
+predicates in one place. What this macro actually does depends on the
+macro name <i>p</i> that we pass to it.
+
+<pre>
+    #define predicates(p) \
+        p(Fizz, i % 3 == 0) \
+        p(Buzz, i % 5 == 0)
+</pre>
+
+<p>We can then define a function-defining macro, and pass it to our
+higher-order macro to define all the predicate functions.
+
+<pre>
+    #define pred_fun(name, test) \
+        static bool name(int i) { return test; }
+    
+    predicates(pred_fun)
+</pre>
+
+<p>And we can define a macro to declare a metadata table entry (using
+the C preprocessor stringification operator), and pass it to our
+higher-order macro to fill in the whole metadata table.
+
+<pre>
+    #define pred_ent(name, test) { name, #name },
+    
+    pred ptbl[] = {
+        predicates(pred_ent)
+    };
+</pre>
+
+<p>For the purposes of the main program we also need to declare the
+end of the table.
+
+<pre>
+    #define ptbl_end (ptbl + sizeof(ptbl)/sizeof(*ptbl))
+</pre>
+
+<p>Higher-order macros can get unweildy, especially if each item in
+the list is large. An alternative is to use a higher-order include
+file, where instead of passing a macro to another macro,
+you <tt>#define</tt> a macro with a particular name, <tt>#include</tt>
+a file of macro invocations, then <tt>#undef</tt> the special macro.
+This saves you from having to end dozens of lines with backslash
+continuations.
