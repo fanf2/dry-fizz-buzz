@@ -1,7 +1,6 @@
 #include <stdio.h>
-#include <err.h>
 
-int main(void) {
+int main() {
   for (int i = 0;; i++)
     printf(printf("%s%s"
       , i % 3 ? "" : "Fizz"
