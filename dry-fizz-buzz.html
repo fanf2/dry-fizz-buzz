@@ -11,9 +11,9 @@ metadata is &quot;Fizz&quot;. In a more realistic situation the
 function might be a driver entry point and the metadata might be a
 description of the hardware it supports.
 
-<p>Both implementations of FizzBuzz fit into this generic FizzBuzz
-framework, which knows the general form of the game but not the
-specific rules about when to utter silly words instead of numbers.
+<p>Both implementations of FizzBuzz fit into the following generic
+FizzBuzz framework, which knows the general form of the game but not
+the specific rules about when to utter silly words instead of numbers.
 
 <pre>
     #include &lt;stdbool.h>
@@ -45,5 +45,5 @@ specific rules about when to utter silly words instead of numbers.
 </pre>
 
 <p>To compile this code you need to define the PTBL macro to the name
-of the file that implements the FizzBuzz predicate table.
+of a file that implements a FizzBuzz predicate table.
 
