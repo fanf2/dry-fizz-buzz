@@ -18,6 +18,7 @@ the specific rules about when to utter silly words instead of numbers.
 <pre>
     #include &lt;stdbool.h>
     #include &lt;stdio.h>
+    #include &lt;err.h>
     
     // predicate metadata
     typedef struct pred {
@@ -39,7 +40,8 @@ the specific rules about when to utter silly words instead of numbers.
             for (pred *p = ptbl; p &lt; ptbl_end; p++)
                 done |= putsafe(p->pred(i) ? p->name : NULL);
             // if no predicate was true, print the number
-            printf(done ? "\n" : "%d\n", i);
+            if (printf(done ? "\n" : "%d\n", i) &lt; 0)
+                err(1, "printf");
         }
     }
 </pre>
