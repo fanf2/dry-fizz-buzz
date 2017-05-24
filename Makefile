@@ -6,7 +6,7 @@ CFLAGS=	-pipe -O -g -std=c99 -pedantic \
 	-Wswitch-default -Wswitch-enum -Wunreachable-code -Wwrite-strings
 
 all: dry-fizz-buzz-elf dry-fizz-buzz-hom blog.html \
-     terse-fizz-buzz checked-fizz-buzz
+     terse-fizz-buzz flat-fizz-buzz checked-fizz-buzz
 
 html=	dry-fizz-buzz.html \
 	dry-fizz-buzz-hom.html \
@@ -24,6 +24,9 @@ dry-fizz-buzz-hom: dry-fizz-buzz-hom.c dry-fizz-buzz.c
 
 terse-fizz-buzz: terse-fizz-buzz.c
 	gcc ${CFLAGS} -o terse-fizz-buzz terse-fizz-buzz.c
+
+flat-fizz-buzz: flat-fizz-buzz.c
+	gcc ${CFLAGS} -o flat-fizz-buzz flat-fizz-buzz.c
 
 checked-fizz-buzz: checked-fizz-buzz.c
 	gcc ${CFLAGS} -o checked-fizz-buzz checked-fizz-buzz.c
